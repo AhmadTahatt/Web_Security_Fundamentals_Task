@@ -1,0 +1,113 @@
+folder,file,description
+A_earlier_evidence,01-users-no-token.png,Before the fix: users list reachable without a token
+A_earlier_evidence,02-deactivate-user.png,Before the fix: user deactivated without authentication
+A_earlier_evidence,03-register-as-admin.png,Before the fix: account created with role admin (privilege escalation)
+A_earlier_evidence,04-cors-wildcard.png,Before the fix: CORS allows every origin
+A_earlier_evidence,05-headers-before.png,"Response headers before Helmet (same file as 04, retake recommended)"
+A_earlier_evidence,06-no-rate-limit.png,Before the fix: no rate limit on repeated requests
+A_earlier_evidence,07-xss-stored.png,Before the fix: HTML text stored in a product description
+A_earlier_evidence,08-database-ssl.png,Before the fix: database TLS certificate verification disabled (rejectUnauthorized: false)
+A_earlier_evidence,09-env-ignored.png,".env is git-ignored, not tracked and absent from git history"
+A_earlier_evidence,11-validation-price.png,Validation: price
+A_earlier_evidence,11b-validation-negative-price.png,Validation: negative price
+A_earlier_evidence,11c-validation-negative-stock.png,Validation: negative stock
+A_earlier_evidence,11d-validation-stock-as-text.png,Validation: stock sent as text
+A_earlier_evidence,11e-validation-invalid-email.png,Validation: invalid email
+A_earlier_evidence,11f-validation-short-password.png,Validation: short password
+A_earlier_evidence,11g-runner-results-part1.png,"Postman runner results, part 1"
+A_earlier_evidence,11h-runner-results-part2.png,"Postman runner results, part 2"
+A_earlier_evidence,12-validation-role.png,Validation: disallowed role
+A_earlier_evidence,13-valid-product-201.png,Valid product accepted (201)
+A_earlier_evidence,14-sqli-before.png,"SQL injection test, before the fix"
+A_earlier_evidence,15-sqli-after.png,"SQL injection test, after the fix"
+A_earlier_evidence,15b-sqli-after-normal.png,Normal request after the fix
+A_earlier_evidence,16-invalid-id-400.png,Invalid ID rejected (400)
+A_earlier_evidence,16b-valid-id-missing-404.png,Valid ID that does not exist (404)
+A_earlier_evidence,16c-negative-id-400.png,Negative ID rejected (400)
+A_earlier_evidence,17-sqli-id-blocked.png,SQL text in an ID blocked
+B_authentication,20-register-ok-201.png,"Register a valid user. 201, role set to customer by the server, no password hash"
+B_authentication,21-register-duplicate-email-409.png,Register with an existing email. 409
+B_authentication,22-register-role-rejected-400.png,"Register with role=admin. 400, unknown key rejected"
+B_authentication,23-login-ok-200.png,Login with correct credentials. 200 and a token
+B_authentication,24-login-wrong-password-401.png,Login with a wrong password. 401
+B_authentication,25-login-unknown-email-401.png,"Login with an unknown email. 401, same message and size as wrong password"
+B_authentication,26-me-no-token-401.png,GET /api/auth/me without a token. 401
+B_authentication,27-me-valid-token-200.png,"GET /api/auth/me with a valid token. 200, no password hash"
+B_authentication,28-me-garbled-token-401.png,GET /api/auth/me with token abc.def.ghi. 401
+B_authentication,28b-me-malformed-header-401.png,GET /api/auth/me with a malformed Authorization header. 401
+B_authentication,29-register-customer-201.png,Second test account registered as customer. 201
+B_authentication,29b-login-admin-200.png,Login as the admin test account. 200 (test token)
+B_authentication,29c-login-customer-200.png,Login as the customer test account. 200 (test token)
+C_authorization_and_ownership,30-db-promote-test-admin.png,"Admin created directly in the database, never through the API"
+C_authorization_and_ownership,31-users-no-token-401.png,GET /api/users without a token. 401
+C_authorization_and_ownership,32-users-customer-403.png,GET /api/users as customer. 403
+C_authorization_and_ownership,33-users-admin-200.png,GET /api/users as admin. 200 (personal data blurred)
+C_authorization_and_ownership,34-products-public-no-auth-200.png,"GET /api/products with No Auth. 200, reading stays public"
+C_authorization_and_ownership,35-product-create-admin-201.png,POST /api/products as admin. 201
+C_authorization_and_ownership,35b-product-valid-create-201.png,POST /api/products valid body as admin. 201
+C_authorization_and_ownership,35c-product-deactivate-admin-200.png,PATCH deactivate as admin. 200
+C_authorization_and_ownership,36-product-create-customer-403.png,POST /api/products as customer. 403
+C_authorization_and_ownership,45-user-own-record-200.png,GET /api/users/22 as customer (own record). 200
+C_authorization_and_ownership,46-user-other-record-403.png,GET /api/users/20 as customer (someone else). 403
+C_authorization_and_ownership,47-user-admin-200.png,GET /api/users/22 as admin. 200
+C_authorization_and_ownership,48-orders-own-list-200.png,"GET /api/orders as customer. 200, only own order"
+C_authorization_and_ownership,49-order-own-200.png,GET /api/orders/13 as owner. 200 with items
+C_authorization_and_ownership,50-order-other-user-404.png,GET /api/orders/1 as customer (not owner). 404
+C_authorization_and_ownership,51-order-admin-200.png,GET /api/orders/1 as admin. 200
+C_authorization_and_ownership,52-orders-no-token-401.png,GET /api/orders without a token. 401
+C_authorization_and_ownership,54-user-id-abc-400.png,"GET /api/users/abc. 400, ID must be a number"
+D_headers_cors_rate_limit_errors,40a-root-no-auth-200.png,GET / with No Auth. 200
+D_headers_cors_rate_limit_errors,40-helmet-headers.png,"Helmet response headers, no X-Powered-By"
+D_headers_cors_rate_limit_errors,41-not-found-404.png,Unknown route. 404 JSON from notFound
+D_headers_cors_rate_limit_errors,42-cors-evil-origin-no-header.png,Origin http://evil.example. No Access-Control-Allow-Origin in response
+D_headers_cors_rate_limit_errors,42a-cors-evil-origin-request.png,Request with Origin http://evil.example
+D_headers_cors_rate_limit_errors,43-cors-allowed-origin-header.png,Origin http://localhost:3000. Access-Control-Allow-Origin present
+D_headers_cors_rate_limit_errors,43a-cors-allowed-origin-request.png,Request with Origin http://localhost:3000
+D_headers_cors_rate_limit_errors,43b-cors-allowed-response-headers.png,Response headers for the allowed origin
+D_headers_cors_rate_limit_errors,44a-login-401-before-limit.png,"Wrong-password login, before the limit is reached. 401"
+D_headers_cors_rate_limit_errors,44-login-rate-limit-429.png,Login attempts over the limit. 429
+D_headers_cors_rate_limit_errors,66-error-foreign-key-safe-400.png,"Database error returned as a plain message, no SQL or stack trace"
+D_headers_cors_rate_limit_errors,67-error-broken-json-400.png,Broken JSON. 400 Invalid JSON in request body
+E_validation_and_sql_injection,55-product-no-name-400.png,"Product without a name. 400, field name"
+E_validation_and_sql_injection,55a-product-duplicate-sku-409.png,Duplicate SKU. 409
+E_validation_and_sql_injection,55b-product-no-name-and-bad-price-400.png,Missing name and negative price. Both fields reported
+E_validation_and_sql_injection,56-product-price-zero-400.png,Price 0. 400
+E_validation_and_sql_injection,57-product-price-negative-400.png,Price -5. 400
+E_validation_and_sql_injection,57a-price-and-stock-negative-400.png,Negative price and stock. Both fields reported
+E_validation_and_sql_injection,58-product-stock-negative-400.png,Stock -3. 400
+E_validation_and_sql_injection,59-product-stock-text-400.png,Stock sent as text. 400
+E_validation_and_sql_injection,59a-price-negative-and-stock-text-400.png,Negative price and text stock. Both fields reported
+E_validation_and_sql_injection,60-register-bad-email-400.png,Register with an invalid email. 400
+E_validation_and_sql_injection,61-register-short-password-400.png,Register with a short password. 400
+E_validation_and_sql_injection,62-sqli-id-400.png,SQL text in a product ID. 400
+E_validation_and_sql_injection,63-sqli-login-email-400.png,SQL text as login email. 400
+E_validation_and_sql_injection,63a-sqli-login-email-and-short-password-400.png,"SQL text as login email, short password. 400"
+F_passwords_and_xss,64-db-password-hashed.png,"Stored password is a bcrypt hash ($2b$12$, rest blurred)"
+F_passwords_and_xss,65-no-password-in-users-response.png,Search for 'password' in GET /api/users. No results (personal data blurred)
+F_passwords_and_xss,68-xss-stored-as-text.png,HTML text stored and returned as plain text. 201
+F_passwords_and_xss,69-xss-response-headers.png,"Product list headers: JSON content type, nosniff, CSP"
+F_passwords_and_xss,68b-xss-product-35-deactivated.png,XSS test product deactivated
+G_security_logging,53-security-log-terminal.png,Security log lines in the terminal
+G_security_logging,53a-login-failed-401.png,Failed login that produces LOGIN_FAILED
+G_security_logging,53b-product-34-deactivated.png,Admin deactivation (ADMIN_ACTION)
+G_security_logging,53c-product-30-deactivated.png,Admin deactivation (ADMIN_ACTION)
+G_security_logging,53d-trigger-missing-token-401.png,Request that produces AUTH_MISSING_TOKEN
+G_security_logging,53e-trigger-access-denied-403.png,Request that produces ACCESS_DENIED
+G_security_logging,53f-trigger-invalid-token-401.png,Request that produces AUTH_INVALID_TOKEN
+G_security_logging,53g-trigger-deactivate-no-token-401.png,Deactivate without a token. 401
+Z_debug_not_for_report,products-with-admin-token-200.png,"Products list, admin token still attached"
+Z_debug_not_for_report,product-create-expired-token-401.png,Expired token
+Z_debug_not_for_report,login-wrong-method-404.png,GET sent to a POST route
+Z_debug_not_for_report,orders-missing-baseurl.png,URL without {{baseUrl}}
+Z_debug_not_for_report,orders-route-not-mounted-404.png,Orders router not mounted yet
+Z_debug_not_for_report,orders-empty-list.png,No orders for the account yet
+Z_debug_not_for_report,sql-placeholder-error.png,Placeholder left in SQL
+Z_debug_not_for_report,sql-foreign-key-error.png,Order id did not exist
+Z_debug_not_for_report,neon-orders-of-user-22.png,Query result
+Z_debug_not_for_report,neon-orders-of-other-users.png,Query result
+Z_debug_not_for_report,sql-duplicate-item.png,Item already existed
+Z_debug_not_for_report,product-create-expired-token-401-b.png,Expired token
+Z_debug_not_for_report,price-negative-stock-10-400.png,Duplicate of 57
+Z_debug_not_for_report,register-body-sent-to-products-1.png,Wrong route
+Z_debug_not_for_report,register-body-sent-to-products-2.png,Wrong route
+Z_debug_not_for_report,fk-test-no-token-401.png,No token

@@ -34,6 +34,15 @@ async function getUserById(req, res) {
         message: "Invalid user ID"
       });
     }
+    const isAdmin = req.user.role === "admin";
+    const isOwner = String(req.user.id) === String(userId);
+
+    if (!isAdmin && !isOwner) {
+      return res.status(403).json({
+        success: false,
+        message: "Forbidden"
+      });
+    }
 
     const result = await pool.query(
       `SELECT ${SAFE_COLUMNS} FROM users WHERE id = $1`,
@@ -75,14 +84,15 @@ async function createUser(req, res) {
       });
     }
 
-    if (typeof password !== "string" || password.length < 8) {
+    if (typeof password !== "string" || password.length < 8 || password.length > 72) {
       return res.status(400).json({
         success: false,
-        message: "Password must be at least 8 characters"
+        message: "Password must be between 8 and 72 characters"
       });
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+
+    const passwordHash = await bcrypt.hash(password, 12);
 
     const result = await pool.query(
       `INSERT INTO users (full_name, email, phone, password_hash, role)

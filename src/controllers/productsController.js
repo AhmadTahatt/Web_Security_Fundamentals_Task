@@ -1,13 +1,15 @@
 const pool = require("../config/database");
-
 async function getProducts(req, res) {
   try {
-    const result = await pool.query(`
-      SELECT id, category_id, name, description,
-             price, stock_quantity, sku, is_active, created_at
-      FROM products
-      ORDER BY id DESC
-    `);
+    const search = String(req.query.search || "").slice(0, 100);
+    const result = await pool.query(
+      `SELECT id, category_id, name, description,
+              price, stock_quantity, sku, is_active, created_at
+       FROM products
+       WHERE name ILIKE $1 AND is_active = TRUE
+       ORDER BY id DESC`,
+      [`%${search}%`]
+    );
 
     res.status(200).json({
       success: true,
